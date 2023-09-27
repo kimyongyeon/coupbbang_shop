@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 목록</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 70%;
+        margin: auto;
+      }
+      header {
+        background: #50b3a2;
+        color: #ffffff;
+        padding-top: 30px;
+        min-height: 70px;
+        border-bottom: #bbb 1px solid;
+      }
+      header h1 {
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0;
+        font-size: 24px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 18px;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      #searchBar {
+        margin-bottom: 20px;
+      }
+      #searchBar input[type="text"] {
+        padding: 10px;
+        width: 80%;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      #searchBar button {
+        padding: 10px 20px;
+        background: #50b3a2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #searchBar button:hover {
+        background: #43927e;
+      }
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+      .pagination a {
+        padding: 10px 15px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+        margin: 0 5px;
+        border-radius: 5px;
+        color: #333;
+      }
+      .pagination a:hover,
+      .pagination a.active {
+        background-color: #50b3a2;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>상품 목록</h1>
+    </header>
+    <div class="container">
+      <div id="searchBar">
+        <input type="text" id="searchInput" placeholder="상품명으로 검색" />
+        <button onclick="searchProduct()">검색</button>
+      </div>
+      <table id="productTable">
+        <thead>
+          <tr>
+            <th>상품번호</th>
+            <th>상품명</th>
+            <th>상품개수</th>
+            <th>상품 가격</th>
+            <th>출시일자</th>
+            <th>노출여부</th>
+          </tr>
+        </thead>
+        <tbody id="productBody">
+          <!-- 상품 목록이 여기에 표시됩니다. -->
+        </tbody>
+      </table>
+      <div class="pagination" id="pagination">
+        <!-- 페이징 버튼이 여기에 표시됩니다. -->
+      </div>
+    </div>
+    <script>
+      // 예시 상품 데이터
+      var products = [
+        {
+          number: "1",
+          name: "상품A",
+          count: 10,
+          price: 10000,
+          releaseDate: "2023-09-01",
+          visibility: "노출",
+        },
+        // 추가 상품 데이터를 여기에 입력하세요.
+      ];
+
+      var currentPage = 1;
+      var itemsPerPage = 5;
+
+      // 상품 목록을 표시하는 함수
+      function displayProducts() {
+        var start = (currentPage - 1) * itemsPerPage;
+        var end = start + itemsPerPage;
+        var displayItems = products.slice(start, end);
+
+        var tbody = document.getElementById("productBody");
+        tbody.innerHTML = "";
+
+        for (var item of displayItems) {
+          var row = tbody.insertRow();
+          for (var key in item) {
+            var cell = row.insertCell();
+            cell.textContent = item[key];
+          }
+        }
+
+        displayPagination();
+      }
+
+      // 페이징 버튼을 표시하는 함수
+      function displayPagination() {
+        var pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        var totalPages = Math.ceil(products.length / itemsPerPage);
+
+        for (var i = 1; i <= totalPages; i++) {
+          var pageLink = document.createElement("a");
+          pageLink.href = "#";
+          pageLink.textContent = i;
+          pageLink.onclick = function () {
+            currentPage = parseInt(this.textContent);
+            displayProducts();
+          };
+
+          if (i === currentPage) {
+            pageLink.classList.add("active");
+          }
+
+          pagination.appendChild(pageLink);
+        }
+      }
+
+      // 상품명으로 검색하는 함수
+      function searchProduct() {
+        var searchInput = document.getElementById("searchInput");
+        var searchText = searchInput.value.toLowerCase();
+
+        if (searchText) {
+          products = products.filter(function (product) {
+            return product.name.toLowerCase().includes(searchText);
+          });
+        } else {
+          // 검색어가 없을 경우, 원래의 상품 목록을 복원합니다.
+          // 원래의 상품 목록 데이터를 복사하여 사용하세요.
+        }
+
+        displayProducts();
+      }
+
+      // 페이지 로드 시 상품 목록을 표시합니다.
+      displayProducts();
+    </script>
+  </body>
+</html>

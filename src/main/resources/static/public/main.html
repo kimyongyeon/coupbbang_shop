@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메인 화면</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        padding-bottom: 50px;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px 0px #000;
+        margin-top: 50px;
+        height: 100vh;
+      }
+      header {
+        background: #50b3a2;
+        color: #ffffff;
+        padding: 10px;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+      }
+      nav {
+        margin: 20px 0;
+        background-color: #f2f2f2;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-around;
+      }
+      nav ul li {
+        cursor: pointer;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 18px;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>메인 화면</h1>
+      </header>
+      <nav>
+        <ul>
+          <li><a href="product_reg.html">상품등록</a></li>
+          <li><a href="product_list.html">상품목록</a></li>
+          <li><a href="cart.html">카트</a></li>
+          <li><a href="member_mng.html">회원관리</a></li>
+          <li><a href="profile.html">프로필</a></li>
+          <li><a href="login.html">로그인</a></li>
+        </ul>
+      </nav>
+      <section>
+        <h2>상품목록</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>상품번호</th>
+              <th>상품명</th>
+              <th>가격</th>
+              <th>재고</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>상품1</td>
+              <td>10,000원</td>
+              <td>100개</td>
+            </tr>
+            <!-- 추가 상품 목록을 여기에 표시 -->
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </body>
+</html>

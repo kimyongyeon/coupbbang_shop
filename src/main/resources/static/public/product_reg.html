@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 등록</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 50%;
+        margin: auto;
+      }
+      header {
+        background: #50b3a2;
+        color: #ffffff;
+        padding-top: 30px;
+        min-height: 70px;
+        border-bottom: #bbb 1px solid;
+      }
+      header a {
+        color: #fff;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 16px;
+      }
+      header ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        overflow: hidden;
+      }
+      header li {
+        float: left;
+        display: block;
+        padding: 0 15px;
+        font-size: 16px;
+      }
+      header nav {
+        float: right;
+        margin-top: 10px;
+      }
+      header a:hover {
+        text-decoration: underline;
+      }
+      .form-group {
+        margin: 15px 0;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group input[type="text"],
+      .form-group input[type="number"],
+      .form-group input[type="date"],
+      .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .form-group input[type="file"] {
+        padding: 5px;
+      }
+      .form-group input[type="submit"] {
+        padding: 10px 20px;
+        background: #50b3a2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .form-group input[type="submit"]:hover {
+        background: #43927e;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>상품 등록</h1>
+      </div>
+    </header>
+    <div class="container">
+      <form
+        action="/register-product"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label for="productNumber">상품번호</label>
+          <input type="text" id="productNumber" name="productNumber" required />
+        </div>
+        <div class="form-group">
+          <label for="productName">상품명</label>
+          <input type="text" id="productName" name="productName" required />
+        </div>
+        <div class="form-group">
+          <label for="productCount">상품개수</label>
+          <input type="number" id="productCount" name="productCount" required />
+        </div>
+        <div class="form-group">
+          <label for="productPrice">상품 가격</label>
+          <input type="number" id="productPrice" name="productPrice" required />
+        </div>
+        <div class="form-group">
+          <label for="productImage">상품 이미지</label>
+          <input
+            type="file"
+            id="productImage"
+            name="productImage"
+            accept="image/*"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="releaseDate">출시일자</label>
+          <input type="date" id="releaseDate" name="releaseDate" required />
+        </div>
+        <div class="form-group">
+          <label for="visibility">노출여부</label>
+          <select id="visibility" name="visibility">
+            <option value="visible">노출</option>
+            <option value="hidden">숨김</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="상품 등록" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

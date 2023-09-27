@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원 관리</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 70%;
+        margin: auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px 0px #000;
+        margin-top: 50px;
+      }
+      header {
+        background: #50b3a2;
+        color: #ffffff;
+        padding: 10px;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 18px;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      #searchBar {
+        margin-bottom: 20px;
+      }
+      #searchBar input[type="text"] {
+        padding: 10px;
+        width: 80%;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      #searchBar button {
+        padding: 10px 20px;
+        background: #50b3a2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #searchBar button:hover {
+        background: #43927e;
+      }
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+      .pagination a {
+        padding: 10px 15px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+        margin: 0 5px;
+        border-radius: 5px;
+        color: #333;
+      }
+      .pagination a:hover,
+      .pagination a.active {
+        background-color: #50b3a2;
+        color: #fff;
+      }
+      select {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>회원 관리</h1>
+      </header>
+      <div id="searchBar">
+        <input type="text" id="searchInput" placeholder="아이디로 검색" />
+        <button onclick="searchUser()">검색</button>
+      </div>
+      <table id="userTable">
+        <thead>
+          <tr>
+            <th>아이디</th>
+            <th>패스워드</th>
+            <th>등급</th>
+            <th>수정</th>
+          </tr>
+        </thead>
+        <tbody id="userBody">
+          <!-- 회원 목록이 여기에 표시됩니다. -->
+        </tbody>
+      </table>
+      <div class="pagination" id="pagination">
+        <!-- 페이징 버튼이 여기에 표시됩니다. -->
+      </div>
+    </div>
+    <script>
+      // 예시 회원 데이터
+      var users = [
+        { userId: "user1", password: "password1", grade: "일반" },
+        // 추가 회원 데이터를 여기에 입력하세요.
+      ];
+
+      var currentPage = 1;
+      var itemsPerPage = 10;
+
+      // 회원 목록을 표시하는 함수
+      function displayUsers() {
+        var start = (currentPage - 1) * itemsPerPage;
+        var end = start + itemsPerPage;
+        var displayItems = users.slice(start, end);
+
+        var tbody = document.getElementById("userBody");
+        tbody.innerHTML = "";
+
+        for (var user of displayItems) {
+          var row = tbody.insertRow();
+          var cellId = row.insertCell();
+          cellId.textContent = user.userId;
+          var cellPassword = row.insertCell();
+          cellPassword.textContent = user.password;
+          var cellGrade = row.insertCell();
+          var selectGrade = document.createElement("select");
+          selectGrade.innerHTML =
+            "<option>일반</option><option>관리자</option>";
+          selectGrade.value = user.grade;
+          selectGrade.onchange = function () {
+            // 등급 변경 처리 로직을 여기에 작성하세요.
+          };
+          cellGrade.appendChild(selectGrade);
+          var cellEdit = row.insertCell();
+          var editButton = document.createElement("button");
+          editButton.textContent = "수정";
+          editButton.onclick = function () {
+            // 수정 버튼 클릭 시 처리 로직을 여기에 작성하세요.
+          };
+          cellEdit.appendChild(editButton);
+        }
+
+        displayPagination();
+      }
+
+      // 페이징 버튼을 표시하는 함수
+      function displayPagination() {
+        var pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        var totalPages = Math.ceil(users.length / itemsPerPage);
+
+        for (var i = 1; i <= totalPages; i++) {
+          var pageLink = document.createElement("a");
+          pageLink.href = "#";
+          pageLink.textContent = i;
+          pageLink.onclick = function () {
+            currentPage = parseInt(this.textContent);
+            displayUsers();
+          };
+
+          if (i === currentPage) {
+            pageLink.classList.add("active");
+          }
+
+          pagination.appendChild(pageLink);
+        }
+      }
+
+      // 아이디로 검색하는 함수
+      function searchUser() {
+        var searchInput = document.getElementById("searchInput");
+        var searchText = searchInput.value.toLowerCase();
+
+        if (searchText) {
+          users = users.filter(function (user) {
+            return user.userId.toLowerCase().includes(searchText);
+          });
+        } else {
+          // 검색어가 없을 경우, 원래의 회원 목록을 복원합니다.
+          // 원래의 회원 목록 데이터를 복사하여 사용하세요.
+        }
+
+        displayUsers();
+      }
+
+      // 페이지 로드 시 회원 목록을 표시합니다.
+      displayUsers();
+    </script>
+  </body>
+</html>
